@@ -11,17 +11,17 @@ export class amazonBedrockRagDemoInfraStack extends cdk.Stack {
     super(scope, id, props);
 
     // Create an Amazon ECR repository if it doesn't exist
-    const ecrRepo = new ecr.Repository(this, 'MyEcrRepository', {
-      repositoryName: 'my-ecr-repo' // Change this to your desired repository name
+    const ecrRepo = new ecr.Repository(this, 'BedrockDemoEcrRepo', {
+      repositoryName: 'bedrock-ecr-repo' // Change this to your desired repository name
     });
 
     // Create a Fargate cluster
-    const cluster = new ecs.Cluster(this, 'MyCluster', {
-      clusterName: 'my-fargate-cluster' // Change this to your desired cluster name
+    const cluster = new ecs.Cluster(this, 'BedrockDemoEcsCluster', {
+      clusterName: 'bedrock-demo-fargate-cluster' // Change this to your desired cluster name
     });
 
     // Create a load-balanced Fargate service
-    const loadBalancedFargateService = new ecsPatterns.ApplicationLoadBalancedFargateService(this, 'MyFargateService', {
+    const loadBalancedFargateService = new ecsPatterns.ApplicationLoadBalancedFargateService(this, 'BedrockDemoFargateService', {
       cluster,
       taskImageOptions: {
         image: ecs.ContainerImage.fromEcrRepository(ecrRepo),
